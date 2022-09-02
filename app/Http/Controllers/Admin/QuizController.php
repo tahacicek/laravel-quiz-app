@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\QuizCreateRequest;
+use App\Http\Requests\QuizUpdateRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Quiz;
@@ -73,8 +74,8 @@ class QuizController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   $quiz = Quiz::find($id) ?? abort(404, "Böyle bir quiz bulunamadı.");
+        return view("admin.quiz.edit", compact("quiz"));
     }
 
     /**
@@ -84,9 +85,17 @@ class QuizController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuizUpdateRequest $request, $id)
     {
-        //
+        $quiz = Quiz::find($id) ?? abort(404, "Böyle bir quiz bulunamadı.");
+      $update =  Quiz::where("id", $id)->update($request->except(["_method", "_token"]));
+        if ($update) {
+            toastr()->success($request->title . ' isimli quiz başarıyla güncellendi!', 'Quiz Yönetimi');
+            return redirect()->route("quizzes.index");
+        } else {
+            toastr()->error('Bir sorun oluştu!', 'Quiz Yönetimi');
+            return redirect()->back();
+        }
     }
 
     /**
