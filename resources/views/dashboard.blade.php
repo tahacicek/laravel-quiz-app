@@ -4,15 +4,10 @@
     </x-slot>
 
     <div class="alert alert-primary" role="alert">
-        <strong>Alert Heading</strong> Some Word
+      <h4 class="alert-heading">Alert Heading</h4>
+      <p>Alert Content</p>
+      <hr>
+      <p class="mb-0">Alert Description</p>
     </div>
 
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            Button with data-target
-        </button>
-        <div class="collapse" id="collapseExample">
-          <div class="card card-body">
-            Anim pariatur cliche reprehenderit
-          </div>
-        </div>
 </x-app-layout>
