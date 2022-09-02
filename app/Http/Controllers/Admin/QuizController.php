@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Requests\QuizCreateRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Quiz;
+
 class QuizController extends Controller
 {
     /**
@@ -36,7 +38,21 @@ class QuizController extends Controller
      */
     public function store(QuizCreateRequest $request)
     {
-        return  $request->post();
+  // Quiz::insert([
+        //     "title"=> $request->title,
+        //     "descr" => $request->descr,
+        //     "finished_at"=>$request->finished_at
+        // ]);
+
+        $insert = Quiz::create($request->post());
+
+        if ($insert) {
+            toastr()->success($request->title . ' isimli quiz başarıyla eklendi!', 'Quiz Yönetimi');
+            return redirect()->route("quizzes.index");
+        } else {
+            toastr()->error('Bir sorun oluştu!', 'Quiz Yönetimi');
+            return redirect()->back();
+        }
     }
 
     /**
