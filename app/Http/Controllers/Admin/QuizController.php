@@ -106,6 +106,14 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $quiz = Quiz::find($id) ?? abort(404, "Böyle bir quiz bulunamadı.");
+       // $quiz->delete(); aynısı.
+        $delete = Quiz::where("id", $id)->delete();
+        if ($delete) {
+            toastr()->success('Quiz başarıyla silindi!', 'Quiz Yönetimi');
+            return redirect()->back();
+        } else {
+            toastr()->error('Silinirken bir hata oluştu!', 'Quiz Yönetimi');
+        }
     }
 }
