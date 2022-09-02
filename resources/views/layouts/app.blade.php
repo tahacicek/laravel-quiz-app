@@ -16,16 +16,17 @@
 
     <!-- Scripts -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
 
 <body class="font-sans antialiased">
     <x-jet-banner />
 
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen  dark:bg-slate-800 bg-gray-100">
         @livewire('navigation-menu')
 
         <!-- Page Heading -->
@@ -43,6 +44,7 @@
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     {{ $slot }}
+                    {{ $js }}
 
                 </div>
             </div>
