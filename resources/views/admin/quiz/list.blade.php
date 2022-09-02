@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="text-center display-5">Quizler</div>
+       Quizler
     </x-slot>
 
     <div class="card">

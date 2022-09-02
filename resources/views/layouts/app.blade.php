@@ -33,8 +33,8 @@
         @if (isset($header))
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                        {{ $header }}
+                    <h2 class=" font-semibold text-xl text-gray-800 leading-tight">
+                      <h1 class="display-5 text-center">{{ $header }}</h1>
 
                     </h2>
                 </div>
@@ -42,15 +42,26 @@
         @endif
 
             <div class="py-12">
+
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    @if ($errors->any())
+                    <div class="alert alert-danger"> <strong>Dikkat!</strong>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </div>
+                @endif
                     {{ $slot }}
-                    {{ $js }}
 
                 </div>
             </div>
     </div>
 
     @stack('modals')
+    @isset($js)
+    {{ $js }}
+
+    @endisset
 
     @livewireScripts
 </body>
