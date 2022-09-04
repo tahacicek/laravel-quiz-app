@@ -30,27 +30,28 @@
                         @foreach ($quiz->questions as $question)
                             <tr class="text-center">
                                 <td>
-                                 @if ($question->image)
-                                    <a  class="btn mt-4 btn-sm btn-outline-dark" target="_blank" href="{{ asset($question->image) }}">Görüntüle
-                                    </a>
-                                 @endif
+                                    @if ($question->image)
+                                        <a class="btn mt-4 btn-sm btn-outline-dark" target="_blank"
+                                            href="{{ asset($question->image) }}">Görüntüle
+                                        </a>
+                                    @endif
                                 </td>
-
                                 <td>{{ $question->question }}</td>
                                 <td>{{ $question->answer1 }}</td>
                                 <td>{{ $question->answer2 }}</td>
                                 <td>{{ $question->answer3 }}</td>
                                 <td>{{ $question->answer4 }}</td>
                                 <td>
-                                    <div class="mt-4 badge bg-success"><strong>{{ substr($question->correct_answer, -1) }}.
+                                    <div class="mt-4 badge bg-success">
+                                        <strong>{{ substr($question->correct_answer, -1) }}.
                                             Cevap</strong></div>
                                 </td>
                                 <td class="text-center">
 
                                     <a class=" m-2 btn-sm btn btn-outline-primary"
-                                        href="{{ route("questions.edit",[$quiz->id,  $question->id]) }}"><i class="fa fa-pen"
-                                            aria-hidden="true"></i></a>
-                                    <form method="post" action="{{ route('quizzes.destroy', $question->id) }}">
+                                        href="{{ route('questions.edit', [$quiz->id, $question->id]) }}"><i
+                                            class="fa fa-pen" aria-hidden="true"></i></a>
+                                    <form method="post" action="{{ route("questions.destroy", [$question->id, $quiz->id]) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" title="Sil"

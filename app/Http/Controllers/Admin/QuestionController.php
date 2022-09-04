@@ -119,6 +119,12 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = Question::where("id", $id)->delete();
+        if ($delete) {
+            toastr()->success('Soru başarıyla silindi!', 'Soru Yönetimi');
+            return redirect()->back();
+        } else {
+            toastr()->error('Silinirken bir hata oluştu!', 'Soru Yönetimi');
+        }
     }
 }
