@@ -18,6 +18,7 @@
                     <thead>
                         <tr class="text-center">
                             <th scope="col">Quiz</th>
+                            <th scope="col">Soru Sayısı</th>
                             <th scope="col">Durum</th>
                             <th scope="col">Bitiş Tarihi</th>
                             <th scope="col">İşlemler</th>
@@ -27,11 +28,35 @@
                         @foreach ($quizzes as $quiz)
                             <tr class="text-center">
                                 <td>{{ $quiz->title }}</td>
-                                <td>{{ $quiz->status }}</td>
-                                <td>{{ $quiz->finished_at }}</td>
+                                <td>{{ $quiz->questions_count }}</td>
+                                <td>
+                                    <div class="mt-4">
+                                        @switch($quiz->status)
+                                            @case('publish')
+                                                <span class="badge bg-success">Aktif</span>
+                                            @break
+
+                                            @case('passive')
+                                                <span class="badge bg-danger">Pasif</span>
+                                            @break
+
+                                            @case('draft')
+                                                <span class="badge bg-warning">Taslak</span>
+                                            @break
+                                        @endswitch
+                                    </div>
+                                </td>
+                                <td class="mt-4">
+                                    @if ($quiz->finished_at)
+                                        <p class="mt-4" title="{{ $quiz->finished_at }}">
+                                            {{ \Carbon\Carbon::parse($quiz->finished_at)->diffForHumans(now()) }}</p>
+                                    @else
+                                        <p class="mt-4">Tarih Belirtilmedi</p>
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     <a class=" m-2 btn-sm btn btn-outline-warning"
-                                        href="{{ route("questions.index", $quiz->id) }}"><i class="fa fa-question"
+                                        href="{{ route('questions.index', $quiz->id) }}"><i class="fa fa-question"
                                             aria-hidden="true"></i></a>
                                     <a class=" m-2 btn-sm btn btn-outline-primary"
                                         href="{{ route('quizzes.edit', $quiz->id) }}"><i class="fa fa-pen"

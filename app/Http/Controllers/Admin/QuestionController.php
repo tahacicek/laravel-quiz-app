@@ -117,12 +117,12 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($quiz_id, $question_id)
     {
-        $delete = Question::where("id", $id)->delete();
+        $delete = Quiz::find($quiz_id)->questions()->whereId($question_id)->delete();
         if ($delete) {
             toastr()->success('Soru başarıyla silindi!', 'Soru Yönetimi');
-            return redirect()->back();
+            return redirect()->route("questions.index", $quiz_id);
         } else {
             toastr()->error('Silinirken bir hata oluştu!', 'Soru Yönetimi');
         }

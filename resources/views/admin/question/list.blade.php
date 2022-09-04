@@ -44,14 +44,16 @@
                                 <td>
                                     <div class="mt-4 badge bg-success">
                                         <strong>{{ substr($question->correct_answer, -1) }}.
-                                            Cevap</strong></div>
+                                            Cevap</strong>
+                                    </div>
                                 </td>
                                 <td class="text-center">
 
                                     <a class=" m-2 btn-sm btn btn-outline-primary"
                                         href="{{ route('questions.edit', [$quiz->id, $question->id]) }}"><i
                                             class="fa fa-pen" aria-hidden="true"></i></a>
-                                    <form method="post" action="{{ route("questions.destroy", [$question->id, $quiz->id]) }}">
+                                    <form method="post"
+                                        action="{{ route('questions.destroy', [$quiz->id, $question->id]) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" title="Sil"
