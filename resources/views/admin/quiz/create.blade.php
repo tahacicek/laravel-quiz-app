@@ -9,7 +9,7 @@
             <form method="POST" action="{{ route('quizzes.store') }}">
                 @csrf
                 <div class="mb-3 form-group">
-                    <label for="title" class="form-label">Quiz Başlığı</label>
+                    <label for="title" class="form-label">Soru</label>
                     <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}"
                         placeholder="">
                 </div>

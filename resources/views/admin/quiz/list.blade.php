@@ -29,14 +29,19 @@
                                 <td>{{ $quiz->title }}</td>
                                 <td>{{ $quiz->status }}</td>
                                 <td>{{ $quiz->finished_at }}</td>
-                                <td>
-                                    <a class=" btn-sm btn btn-outline-primary" href="{{ route('quizzes.edit', $quiz->id) }}"><i
-                                            class="fa fa-pen" aria-hidden="true"></i></a>
+                                <td class="text-center">
+                                    <a class=" m-2 btn-sm btn btn-outline-warning"
+                                        href="{{ route("questions.index", $quiz->id) }}"><i class="fa fa-question"
+                                            aria-hidden="true"></i></a>
+                                    <a class=" m-2 btn-sm btn btn-outline-primary"
+                                        href="{{ route('quizzes.edit', $quiz->id) }}"><i class="fa fa-pen"
+                                            aria-hidden="true"></i></a>
                                     <form method="post" action="{{ route('quizzes.destroy', $quiz->id) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" title="Sil" class=" mt-2 btn btn-sm btn-outline-danger">
-                                        <i class="fa fa-trash" aria-hidden="true"></i></button>
+                                        <button type="submit" title="Sil"
+                                            class=" m-2 btn btn-sm btn-outline-danger">
+                                            <i class="fa fa-trash" aria-hidden="true"></i></button>
                                     </form>
                                 </td>
                             </tr>
