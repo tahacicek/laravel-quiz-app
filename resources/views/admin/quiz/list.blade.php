@@ -2,7 +2,6 @@
     <x-slot name="header">
         Quizler
     </x-slot>
-
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">
@@ -13,7 +12,35 @@
                     optio itaque est quisquam fuga excepturi quibusdam iure voluptatum earum repudiandae corporis,
                     dignissimos cupiditate commodi odit.</p>
             </h5>
-            <div class="table-responsive">
+            <form class="" method="GET" action="">
+
+                <div class="d-flex justify-content-center">
+                    <div class="mt-4 form shadow-lg p-4 bg-body rounded row">
+                        <div class="col-md-5">
+                            <input type="text" name="title" value="{{ request()->get('title') }}"
+                                placeholder="Quiz Adı" class="form-control" id="">
+                        </div>
+                        <div class="col-md-5">
+                            <select class="form-select" onchange="this.form.submit()" name="status" id="">
+                                <option value=""><small>Durumu</small></option>
+                                <option @if (request()->get('status') == 'publish') selected @endif value="publish">Akitf</option>
+                                <option @if (request()->get('status') == 'passive') selected @endif value="passive">Pasif</option>
+                                <option @if (request()->get('status') == 'draft') selected @endif value="draft">Taslak</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            @if (request()->get('title') || request()->get('status'))
+                                <a class="btn btn-sm btn-danger" href="{{ route('quizzes.index') }}"><i
+                                        class="fa fa-1x fa-filter" aria-hidden="true"></i></a>
+                            @endif
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+            <div class="mt-3 table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <tr class="text-center">
@@ -56,7 +83,7 @@
                                 </td>
                                 <td class="text-center">
                                     <a class=" m-2 btn-sm btn btn-outline-warning"
-                                        href="{{ route('questions.index', $quiz->id) }}"><i class="fa fa-question"
+                                        href="{{ route('questions.index', $quiz->id) }}"><i class="fa m-1 fa-question"
                                             aria-hidden="true"></i></a>
                                     <a class=" m-2 btn-sm btn btn-outline-primary"
                                         href="{{ route('quizzes.edit', $quiz->id) }}"><i class="fa fa-pen"
@@ -73,8 +100,8 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="shadow-lg p-3 mb-5 bg-body rounded"> <b> {{ $quizzes->links() }}</b></div>
-
+                <div class="shadow-lg p-3 mt-5 mb-5 bg-body rounded"> <b>
+                        {{ $quizzes->withQueryString()->links() }}</b></div>
             </div>
         </div>
     </div>

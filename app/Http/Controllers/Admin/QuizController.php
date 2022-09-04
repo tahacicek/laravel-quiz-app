@@ -17,7 +17,18 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $quizzes = Quiz::withCount("questions")->paginate(5);
+        $quizzes = Quiz::withCount("questions");
+
+        if (request()->get("title")) {
+            $quizzes = $quizzes->where("title", "LIKE", "%" . request()->get('title') . "%");
+        }
+        if (request()->get("status")) {
+            $quizzes = $quizzes->where("status", request()->get("status"));
+        }
+        if (request()->get("questionsCount")) {
+            $quizzes = $quizzes->where("questionsCount", request()->get("questionsCount"));
+        }
+        $quizzes = $quizzes->paginate(5);
         return view("admin.quiz.list", compact("quizzes"));
     }
 
@@ -39,7 +50,7 @@ class QuizController extends Controller
      */
     public function store(QuizCreateRequest $request)
     {
-  // Quiz::insert([
+        // Quiz::insert([
         //     "title"=> $request->title,
         //     "descr" => $request->descr,
         //     "finished_at"=>$request->finished_at
@@ -74,7 +85,8 @@ class QuizController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   $quiz = Quiz::withCount("questions")->find($id) ?? abort(404, "Böyle bir quiz bulunamadı.");
+    {
+        $quiz = Quiz::withCount("questions")->find($id) ?? abort(404, "Böyle bir quiz bulunamadı.");
         return view("admin.quiz.edit", compact("quiz"));
     }
 
@@ -88,7 +100,7 @@ class QuizController extends Controller
     public function update(QuizUpdateRequest $request, $id)
     {
         $quiz = Quiz::find($id) ?? abort(404, "Böyle bir quiz bulunamadı.");
-      $update =  Quiz::where("id", $id)->update($request->except(["_method", "_token"]));
+        $update =  Quiz::where("id", $id)->update($request->except(["_method", "_token"]));
         if ($update) {
             toastr()->success($request->title . ' isimli quiz başarıyla güncellendi!', 'Quiz Yönetimi');
             return redirect()->route("quizzes.index");
@@ -107,7 +119,7 @@ class QuizController extends Controller
     public function destroy($id)
     {
         $quiz = Quiz::find($id) ?? abort(404, "Böyle bir quiz bulunamadı.");
-       // $quiz->delete(); aynısı.
+        // $quiz->delete(); aynısı.
         $delete = Quiz::where("id", $id)->delete();
         if ($delete) {
             toastr()->success('Quiz başarıyla silindi!', 'Quiz Yönetimi');
