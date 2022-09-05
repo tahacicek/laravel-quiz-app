@@ -23,7 +23,8 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get("/dashboard", [MainController::class, "dashboard"])->name("dashboard");
-    Route::get("/quiz/{slug}", [MainController::class, "quiz_detail"])->name("quiz.detail");
+    Route::get("/quiz/detay/{slug}", [MainController::class, "quiz_detail"])->name("quiz.detail");
+    Route::get("/quiz/{slug}", [MainController::class, "quiz"])->name("quiz.join");
 });
 
 Route::group(["middleware" => ["auth", "isAdmin"], "prefix" => "admin", ],function(){
