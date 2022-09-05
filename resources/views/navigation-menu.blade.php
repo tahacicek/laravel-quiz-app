@@ -111,6 +111,7 @@
                                 <x-jet-dropdown-link href="{{ route('dashboard') }}">
                                     {{ __('Dashboard') }}
                                 </x-jet-dropdown-link>
+
                                 <x-jet-dropdown-link href="{{ route('quizzes.index') }}">
                                     Quizler
                                 </x-jet-dropdown-link>
