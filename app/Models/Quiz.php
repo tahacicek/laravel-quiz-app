@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Support\Str;
+use App\Models\Result;
 
 class Quiz extends Model
 {
@@ -22,13 +23,37 @@ class Quiz extends Model
             ]
         ];
     }
-    protected $fillable=["title", "slug", "status", "descr", "finished_at"];
-    protected $dates=["finished_at"];
+    protected $fillable = ["title", "slug", "status", "descr", "quiz_id", "finished_at"];
+    protected $dates = ["finished_at"];
+    protected $appends = ["details"];
 
-    public function getFinishedAtAttribute($date){
+    public function getDetailsAttribute()
+    {
+        if ($this->results()->count() > 0) {
+            # code...
+            return [
+                "average" => round($this->results()->avg("point")),
+                "join_count" => $this->results()->count(),
+            ];
+        }
+        return null;
+    }
+
+
+    public function results()
+    {
+        return $this->hasMany("App\Models\Result");
+    }
+    public function my_result()
+    {
+        return $this->hasOne("App\Models\Result")->where("user_id", auth()->user()->id);
+    }
+    public function getFinishedAtAttribute($date)
+    {
         return $date ? Carbon::parse($date) : null;
     }
-    public function questions(){
+    public function questions()
+    {
         return $this->hasMany("App\Models\Question");
     }
 
@@ -38,5 +63,4 @@ class Quiz extends Model
      *
      * @return array
      */
-
 }

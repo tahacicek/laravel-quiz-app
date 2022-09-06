@@ -5,14 +5,31 @@
     <div class="row">
         <div class="mt-2 col-12 col-md-4">
             <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Katılımcı Sayısı <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                    <span class="badge bg-dark rounded-pill">14</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Ortalama Puan: <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                    <span class="badge bg-dark rounded-pill">14</span>
-                </li>
+                @if ($quiz->my_result)
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Puan: <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                        <span class="badge bg-success rounded-pill">{{ $quiz->my_result->point }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Doğru <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                        <span class="badge bg-primary rounded-pill">{{ $quiz->my_result->correct }}</span>
+                        Yanlış
+                        <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                        <span class="badge bg-warning rounded-pill">{{ $quiz->my_result->wrong }}</span>
+                    </li>
+                @endif
+
+                @if ($quiz->details)
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Katılımcı Sayısı <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                        <span class="badge bg-info rounded-pill">{{ $quiz->details > ['join_count'] }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Ortalama Puan: <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                        <span class="badge bg-success rounded-pill">{{ $quiz->details > ['average'] }}</span>
+                    </li>
+                @endif
+
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Soru Sayısı: <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                     <span class="badge bg-dark rounded-pill">{{ $quiz->questions_count }}</span>
@@ -21,7 +38,7 @@
                     Quiz için son tarih: <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                     <p class="text-danger ">
                         <span @if ($quiz->finished_at) title="($quiz->finished_at)" @endif
-                            class="badge bg-dark rounded-pill">
+                            class="badge bg-danger rounded-pill">
                             @if ($quiz->finished_at)
                                 {{ \Carbon\Carbon::parse($quiz->finished_at)->diffForHumans(now()) . ' bitiyor' }}
                             @else
@@ -53,7 +70,14 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{ route("quiz.join", $quiz->slug) }}" class="btn mt-2 col-12 btn-outline-dark">Quize Git</a>
+                @if (!$quiz->my_result)
+
+                <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn mt-2 col-12 btn-outline-dark">Quize Git</a>
+                @else
+                <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn mt-2 col-12 btn-outline-success">Quizi Görüntüle</a>
+
+                @endif
+
                 <br>
 
             </div>
