@@ -34,7 +34,7 @@
         <div class="mt-2 col-12 col-md-8">
             <div class="card">
                 <div class="card text-dark  bg-light text-center">
-                    <img class="card-img-center img-fluid mx-auto d-bloc"
+                    <img class="card-img-center img-fluid mx-auto d-block"
                         src="https://www.securecare.com/wp-content/uploads/2021/03/page-header-background.jpg"
                         alt="Card image cap">
                     <div class="card-img-overlay">

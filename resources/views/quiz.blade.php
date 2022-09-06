@@ -2,140 +2,50 @@
     <x-slot name="header">
         Quiz
     </x-slot>
-    <div class="row">
-        <div class="mt-2 col-12 col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    Quote
+    <form method="POST" action="">
+    @foreach ($quiz->questions as $question)
+        <div class="card mt-2 text-start">
+            @if ($question->image)
+                <img class="mt-2 card-img-center img-fluid mx-auto d-block" src="{{ asset($question->image) }}" alt="Title">
+            @endif
+            <div class="card-body">
+                <h4 class="card-title"><strong>#{{ $loop->iteration }} </strong> &nbsp;&nbsp;{{ $question->question }}
+                </h4>
+                <hr class="mt-3">
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="quiz{{ $question->id }}1"
+                        name="{{ $question->id }}" value="answer1" required><strong>A-)</strong>
+                    <label class="form-check-label" for="quiz{{ $question->id }}1">
+                        {{ $question->answer1 }}</label>
                 </div>
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0">
-                        <p>A well-known quote, contained in a blockquote element.</p>
-                    </blockquote>
-                    <hr class="mt-2">
-                    <div class="container mt-sm-5 my-1">
-                        <div class="question ml-sm-5 pl-sm-5 pt-2">
-                            <div class="py-2 h5"><b>Q. which option best describes your job role?</b></div>
-                            <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
-                                <label class="options">Small Business Owner or Employee
-                                    <input type="radio" name="radio">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="options">Nonprofit Owner or Employee
-                                    <input type="radio" name="radio">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="options">Journalist or Activist
-                                    <input type="radio" name="radio">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="options">Other
-                                    <input type="radio" name="radio">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center pt-3">
-                            <div id="prev">
-                                <button class="btn btn-primary">Previous</button>
-                            </div>
-                            <div class="ml-auto mr-sm-5">
-                                <button class="btn btn-success">Next</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="quiz{{ $question->id }}2"
+                        name="{{ $question->id }}" value="answer2" required><strong>B-)</strong>
+                    <label class="form-check-label" for="quiz{{ $question->id }}2">
+                        {{ $question->answer2 }}</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="quiz{{ $question->id }}3"
+                        name="{{ $question->id }}" value="answer3" required><strong>C-)</strong>
+                    <label class="form-check-label" for="quiz{{ $question->id }}3">
+                        {{ $question->answer3 }}</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="quiz{{ $question->id }}4"
+                        name="{{ $question->id }}" value="answer4" required><strong>D-)</strong>
+                    <label class="form-check-label" for="quiz{{ $question->id }}4">
+                        {{ $question->answer4 }}</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="quiz{{ $question->id }}5"
+                        name="{{ $question->id }}" value="empty" required><strong>E-)</strong>
+                    <label class="form-check-label" for="quiz{{ $question->id }}5">
+                        {{ $question->empty }}</label>
                 </div>
             </div>
         </div>
-    </div>
-    <style>@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+    @endforeach
+    <div class="mt-2 shadow-lg p-3 mb-5 bg-light !color "><button class="btn col-12 btn-outline-success"  type="submit">Sınavı Bitir </button></div>
+</form>
 
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body{
-            background-color: #333;
-        }
-        .container{
-            background-color: #555;
-            color: #ddd;
-            border-radius: 10px;
-            padding: 20px;
-            font-family: 'Montserrat', sans-serif;
-            max-width: 700px;
-        }
-        .container > p{
-            font-size: 32px;
-        }
-        .question{
-            width: 75%;
-        }
-        .options{
-            position: relative;
-            padding-left: 40px;
-        }
-        #options label{
-            display: block;
-            margin-bottom: 15px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        .options input{
-            opacity: 0;
-        }
-        .checkmark {
-            position: absolute;
-            top: -1px;
-            left: 0;
-            height: 25px;
-            width: 25px;
-            background-color: #555;
-            border: 1px solid #ddd;
-            border-radius: 50%;
-        }
-        .options input:checked ~ .checkmark:after {
-            display: block;
-        }
-        .options .checkmark:after{
-            content: "";
-            width: 10px;
-            height: 10px;
-            display: block;
-            background: white;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            border-radius: 50%;
-            transform: translate(-50%,-50%) scale(0);
-            transition: 300ms ease-in-out 0s;
-        }
-        .options input[type="radio"]:checked ~ .checkmark{
-            background: #21bf73;
-            transition: 300ms ease-in-out 0s;
-        }
-        .options input[type="radio"]:checked ~ .checkmark:after{
-            transform: translate(-50%,-50%) scale(1);
-        }
-        .btn-primary{
-            background-color: #555;
-            color: #ddd;
-            border: 1px solid #ddd;
-        }
-        .btn-primary:hover{
-            background-color: #21bf73;
-            border: 1px solid #21bf73;
-        }
-        .btn-success{
-            padding: 5px 25px;
-            background-color: #21bf73;
-        }
-        @media(max-width:576px){
-            .question{
-                width: 100%;
-                word-spacing: 2px;
-            }
-        }</style>
 </x-app-layout>
