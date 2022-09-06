@@ -22,8 +22,7 @@ class Questions extends Migration
             $table->longText("answer2");
             $table->longText("answer3");
             $table->longText("answer4");
-            $table->longText("empty")->nullable();;
-            $table->enum("correct_answer", ["answer1","answer2","answer3","answer4","empty"]);
+            $table->enum("correct_answer", ["answer1","answer2","answer3","answer4"]);
             $table->foreign("quiz_id")->references("id")->on("quizzes")->onDelete("cascade");
             $table->timestamps();
         });
