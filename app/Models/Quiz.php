@@ -39,19 +39,26 @@ class Quiz extends Model
         return null;
     }
 
+    public function topTen()
+    {
+    return  $this->results()->orderByDesc("point")->take(10);
+    }
 
     public function results()
     {
         return $this->hasMany("App\Models\Result");
     }
+
     public function my_result()
     {
         return $this->hasOne("App\Models\Result")->where("user_id", auth()->user()->id);
     }
+
     public function getFinishedAtAttribute($date)
     {
         return $date ? Carbon::parse($date) : null;
     }
+
     public function questions()
     {
         return $this->hasMany("App\Models\Question");

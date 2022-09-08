@@ -22,11 +22,11 @@
                 @if ($quiz->details)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Katılımcı Sayısı <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                        <span class="badge bg-info rounded-pill">{{ $quiz->details > ['join_count'] }}</span>
+                        <span class="badge bg-info rounded-pill">{{ $quiz->details['join_count'] }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Ortalama Puan: <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                        <span class="badge bg-success rounded-pill">{{ $quiz->details > ['average'] }}</span>
+                        <span class="badge bg-success rounded-pill">{{ $quiz->details['average'] }}</span>
                     </li>
                 @endif
 
@@ -47,6 +47,29 @@
                         </span>
                 </li>
             </ul>
+     @if (count($quiz->topTen))
+     <div class="mt-2 card">
+        <div class="card-header">
+            İlk 10
+        </div>
+        <ul class="list-group">
+            @foreach ($quiz->topTen as $result)
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <strong>{{ $loop->iteration }}.</strong>
+                    <img src="{{ $result->user->profile_photo_url }}" class="w-8 rounded-circle float-left"
+                        alt="">
+
+                    {{ $result->user->name }}
+
+                    <span class="badge bg-dark rounded-pill"><i class="fa fa-hand-pointer m-1"
+                            aria-hidden="true"></i>{{ $result->point }}
+
+                    </span>
+                </li>
+            @endforeach
+        </ul>
+    </div>
+     @endif
         </div>
         <div class="mt-2 col-12 col-md-8">
             <div class="card">
@@ -71,11 +94,11 @@
                     </div>
                 </div>
                 @if (!$quiz->my_result)
-
-                <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn mt-2 col-12 btn-outline-dark">Quize Git</a>
+                    <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn mt-2 col-12 btn-outline-dark">Quize
+                        Git</a>
                 @else
-                <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn mt-2 col-12 btn-outline-success">Quizi Görüntüle</a>
-
+                    <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn mt-2 col-12 btn-outline-success">Quizi
+                        Görüntüle</a>
                 @endif
 
                 <br>
