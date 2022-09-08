@@ -39,12 +39,6 @@
                         <label class="form-check-label" for="quiz{{ $question->id }}4">
                             {{ $question->answer4 }}</label>
                     </div>
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input" id="quiz{{ $question->id }}5"
-                            name="{{ $question->id }}" value="empty" required><strong>E-)</strong>
-                        <label class="form-check-label" for="quiz{{ $question->id }}5">
-                            {{ $question->empty }}</label>
-                    </div>
                 </div>
             </div>
         @endforeach

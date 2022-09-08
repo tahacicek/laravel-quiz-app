@@ -13,7 +13,7 @@ class ResultSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Result::factory(20)->create();
+        \App\Models\Result::factory(10)->create();
 
     }
 }

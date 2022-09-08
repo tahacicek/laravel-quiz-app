@@ -52,7 +52,7 @@ class MainController extends Controller
 
       $create =  Result::create([
             "user_id" => auth()->user()->id,
-            "quiz_id" => $question->id,
+            "quiz_id" => $quiz->id,
             "point" =>  $point,
             "correct" => $correct,
             "wrong" => $wrong,

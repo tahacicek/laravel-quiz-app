@@ -15,14 +15,14 @@ class Result extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("user_id")->nullable();;
-            $table->unsignedBigInteger("quiz_id")->nullable();;
+            $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("quiz_id");
             $table->integer("point");
             $table->integer("correct");
             $table->integer("wrong");
             $table->timestamps();
-            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade")->nullOnDelete();
-            $table->foreign("quiz_id")->references("id")->on("quizzes")->onDelete("cascade")->nullOnDelete();
+            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
+            $table->foreign("quiz_id")->references("id")->on("quizzes")->onDelete("cascade");
 
         });
     }
