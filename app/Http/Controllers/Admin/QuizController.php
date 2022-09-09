@@ -75,7 +75,12 @@ class QuizController extends Controller
      */
     public function show($id)
     {
-        //
+         $quiz = Quiz::find($id)->with("topTen.user", "results.user")->first() ?? abort(404, "Quiz Bulunamadı");
+         if ($quiz) {
+            toastr()->success('Quiz detaylarına yönlendirildiniz.', 'Quiz Yönetimi');
+            return view("admin.quiz.show", compact("quiz"));
+        }
+
     }
 
     /**

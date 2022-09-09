@@ -60,7 +60,13 @@
                                     <div class="mt-4">
                                         @switch($quiz->status)
                                             @case('publish')
-                                                <span class="badge bg-success">Aktif</span>
+                                                @if (!$quiz->finished_at)
+                                                    <span class="badge bg-success">Aktif</span>
+                                                @elseif ($quiz->finished_at > now())
+                                                    <span class="badge bg-success">Aktif</span>
+                                                @else
+                                                    <span class="badge bg-dark">Tarihi Dolmuş</span>
+                                                @endif
                                             @break
 
                                             @case('passive')
@@ -81,20 +87,23 @@
                                         <p class="mt-4">Tarih Belirtilmedi</p>
                                     @endif
                                 </td>
-                                <td class="text-center">
-                                    <a class=" m-2 btn-sm btn btn-outline-warning"
-                                        href="{{ route('questions.index', $quiz->id) }}"><i class="fa m-1 fa-question"
+                                <td class="">
+                                    <a class=" m-2 float-center btn-sm btn btn-outline-warning"
+                                        href="{{ route('questions.index', $quiz->id) }}"><i class="fa m-1  fa-question"
                                             aria-hidden="true"></i></a>
-                                    <a class=" m-2 btn-sm btn btn-outline-primary"
+                                    <a class=" m-2  float-center btn-sm btn btn-outline-primary"
                                         href="{{ route('quizzes.edit', $quiz->id) }}"><i class="fa fa-pen"
                                             aria-hidden="true"></i></a>
                                     <form method="post" action="{{ route('quizzes.destroy', $quiz->id) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" title="Sil"
-                                            class=" m-2 btn btn-sm btn-outline-danger">
+                                            class="float-center btn btn-sm btn-outline-danger">
                                             <i class="fa fa-trash" aria-hidden="true"></i></button>
                                     </form>
+                                    <a class=" float-center m-2 btn-sm btn btn-outline-secondary"
+                                        href="{{ route('quizzes.show', $quiz->id) }}"><i class="fa m-1 fa-info"
+                                            aria-hidden="true"></i></a>
                                 </td>
                             </tr>
                         @endforeach

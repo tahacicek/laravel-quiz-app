@@ -39,8 +39,9 @@
                         {{ $result->quiz->title }}
                     </a>
                 @endforeach
-
             </div>
+            <br>
+            <br>
         </div>
     </div>
 </x-app-layout>
