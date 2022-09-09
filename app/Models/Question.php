@@ -19,8 +19,8 @@ class Question extends Model
         $answers_count = $this->answers()->count();
         $true_answer = $this->answers()->where("answer", $this->correct_answer)->count();
 
-       // return round((100/$this->answer_count)*$true_answer);
-        return round(($this->answer_count)*$true_answer);
+        return round((100/$this->answer_count)*$true_answer);
+      //  return round(($this->answer_count)*$true_answer);
     }
 
     public function answers(){

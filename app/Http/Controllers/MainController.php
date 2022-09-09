@@ -6,6 +6,7 @@ use App\Models\Quiz;
 use Illuminate\Http\Request;
 use App\Models\Answer;
 use App\Models\Result;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
@@ -16,8 +17,12 @@ class MainController extends Controller
 {
     public function dashboard()
     {
-        $quizzes = Quiz::where("status", "publish")->withCount("questions")->paginate(3);
-        return view("dashboard", compact("quizzes"));
+        $quizzes = Quiz::where("status", "publish")->where(function($query){
+            $query->whereNull("finished_at")->orWhere("finished_at", ">", now());
+        })->withCount("questions")->paginate(3);
+        // return User::with("results");
+        $results =  auth()->user()->results;
+        return view("dashboard", compact("quizzes", "results"));
     }
     public function quiz_detail($slug)
     {

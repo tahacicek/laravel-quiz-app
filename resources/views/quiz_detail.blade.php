@@ -98,7 +98,7 @@
                 @if (!$quiz->my_result)
                     <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn mt-2 col-12 btn-outline-dark">Quize
                         Git</a>
-                @else
+                @elseif ($quiz->finished_at>now())
                     <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn mt-2 col-12 btn-outline-success">Quiz Sonuçları
                         </a>
                 @endif
