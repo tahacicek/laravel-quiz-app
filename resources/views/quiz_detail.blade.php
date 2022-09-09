@@ -8,7 +8,7 @@
                 @if ($quiz->my_rank)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Sıralama <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                        <span class="badge bg-primary rounded-pill">{{ $quiz->my_rank }}</span>
+                        <span class="badge bg-warning text-dark">{{ $quiz->my_rank }}</span>
                     </li>
                 @endif
                 @if ($quiz->my_result)
@@ -21,12 +21,9 @@
                         <span class="badge bg-primary rounded-pill">{{ $quiz->my_result->correct }}</span>
                         Yanlış
                         <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                        <span
-                            class="badge bg-warning
-                        rounded-pill">{{ $quiz->my_result->wrong }}</span>
+                        <span class="badge bg-warning rounded-pill">{{ $quiz->my_result->wrong }}</span>
                     </li>
                 @endif
-
                 @if ($quiz->details)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Katılımcı Sayısı <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
@@ -37,7 +34,6 @@
                         <span class="badge bg-success rounded-pill">{{ $quiz->details['average'] }}</span>
                     </li>
                 @endif
-
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Soru Sayısı: <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                     <span class="badge bg-dark rounded-pill">{{ $quiz->questions_count }}</span>
@@ -66,11 +62,11 @@
                                 <strong>{{ $loop->iteration }}.</strong>
                                 <img src="{{ $result->user->profile_photo_url }}" class="w-8 rounded-circle float-left"
                                     alt="">
-                                <span @if (auth()->user()->id==$result->user_id) class="badge bg-warning text-dark"@endif>
+                                <span @if (auth()->user()->id == $result->user_id) class="badge bg-warning text-dark" @endif>
                                     {{ $result->user->name }}</span>
-                                    <span class="badge bg-dark rounded-pill"><i class="fa fa-hand-pointer m-1"
-                                            aria-hidden="true"></i>{{ $result->point }}
-                                    </span>
+                                <span class="badge bg-dark rounded-pill"><i class="fa fa-hand-pointer m-1"
+                                        aria-hidden="true"></i>{{ $result->point }}
+                                </span>
                             </li>
                         @endforeach
                     </ul>
@@ -103,12 +99,10 @@
                     <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn mt-2 col-12 btn-outline-dark">Quize
                         Git</a>
                 @else
-                    <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn mt-2 col-12 btn-outline-success">Quizi
-                        Görüntüle</a>
+                    <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn mt-2 col-12 btn-outline-success">Quiz Sonuçları
+                        </a>
                 @endif
-
                 <br>
-
             </div>
         </div>
     </div>
