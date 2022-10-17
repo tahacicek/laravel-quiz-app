@@ -34,6 +34,8 @@
                                         <a class="btn mt-4 btn-sm btn-outline-dark" target="_blank"
                                             href="{{ asset($question->image) }}">Görüntüle
                                         </a>
+                                    @else
+                                        <h5>Görsel Yok</h5>
                                     @endif
                                 </td>
                                 <td>{{ $question->question }}</td>
